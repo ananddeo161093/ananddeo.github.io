@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dr. Anand Deo | IIM Bangalore</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        academic: {
+                            50: '#f8fafc',
+                            100: '#f1f5f9',
+                            200: '#e2e8f0',
+                            300: '#cbd5e1',
+                            400: '#94a3b8',
+                            500: '#64748b',
+                            600: '#475569',
+                            700: '#334155', // Primary Slate
+                            800: '#1e293b',
+                            900: '#0f172a',
+                            blue: '#2563eb', // Accent Blue
+                            darkblue: '#1d4ed8'
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['Playfair Display', 'Georgia', 'serif'],
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.4s ease-out forwards',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0', transform: 'translateY(10px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .active-nav-link {
+            color: #2563eb !important;
+            font-weight: 600;
+        }
+        .dark .active-nav-link {
+            color: #60a5fa !important;
+        }
+        .active-nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: currentColor;
+        }
+        .nav-link {
+            position: relative;
+        }
+        /* Custom scrollbar for a cleaner look */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        .dark ::-webkit-scrollbar-thumb { background: #475569; }
+    </style>
+</head>
+<body class="bg-academic-50 text-academic-800 dark:bg-academic-900 dark:text-academic-100 font-sans transition-colors duration-300 min-h-screen flex flex-col">
+
+<header class="sticky top-0 z-50 bg-white/95 dark:bg-academic-900/95 backdrop-blur-sm border-b border-academic-200 dark:border-academic-800">
+    <nav class="max-w-5xl mx-auto px-4 sm:px-6 h-20 flex items-center justify-between">
+        <div class="flex items-center space-x-4">
+            <div class="leading-tight">
+                <a href="#" onclick="navigate('about'); return false;" class="text-2xl font-serif font-bold text-academic-900 dark:text-white tracking-tight hover:text-academic-blue transition-colors">Anand Deo</a>
+                <p class="text-xs text-academic-500 dark:text-academic-400 font-medium">IIM Bangalore</p>
+            </div>
+        </div>
+        
+        <!-- Desktop Navigation -->
+        <div class="hidden md:flex items-center space-x-8 text-sm text-academic-600 dark:text-academic-300">
+            <a href="#" onclick="navigate('about'); return false;" class="nav-link py-2 hover:text-academic-900 dark:hover:text-white transition-colors active-nav-link" data-target="about">Home & About</a>
+            <a href="#" onclick="navigate('research'); return false;" class="nav-link py-2 hover:text-academic-900 dark:hover:text-white transition-colors" data-target="research">Research</a>
+            <a href="#" onclick="navigate('teaching'); return false;" class="nav-link py-2 hover:text-academic-900 dark:hover:text-white transition-colors" data-target="teaching">Teaching</a>
+            <a href="#" onclick="navigate('students'); return false;" class="nav-link py-2 hover:text-academic-900 dark:hover:text-white transition-colors" data-target="students">Students</a>
+            
+            <div class="h-5 w-px bg-academic-300 dark:bg-academic-700"></div>
+            
+            <button id="themeToggle" class="text-academic-500 hover:text-academic-900 dark:hover:text-white transition-colors" aria-label="Toggle dark mode">
+                <i id="themeIcon" class="fas fa-moon text-lg"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Menu Toggle -->
+        <div class="flex items-center space-x-4 md:hidden">
+            <button id="themeToggleMobile" class="text-academic-500 hover:text-academic-900 dark:hover:text-white transition-colors">
+                <i id="themeIconMobile" class="fas fa-moon text-lg"></i>
+            </button>
+            <button id="mobileMenuBtn" class="text-academic-600 dark:text-academic-300 hover:text-academic-900 dark:hover:text-white">
+                <i class="fas fa-bars text-xl"></i>
+            </button>
+        </div>
+    </nav>
+</header>
+
+<!-- Mobile Navigation Menu -->
+<div id="mobileMenu" class="hidden md:hidden fixed inset-x-0 top-20 bg-white dark:bg-academic-900 border-b border-academic-200 dark:border-academic-800 z-40 shadow-lg">
+    <div class="px-4 py-4 space-y-2 text-sm font-medium">
+        <a href="#" onclick="navigate('about'); return false;" class="mobile-nav-link block px-3 py-2 rounded-md hover:bg-academic-100 dark:hover:bg-academic-800" data-target="about">Home & About</a>
+        <a href="#" onclick="navigate('research'); return false;" class="mobile-nav-link block px-3 py-2 rounded-md hover:bg-academic-100 dark:hover:bg-academic-800" data-target="research">Research</a>
+        <a href="#" onclick="navigate('teaching'); return false;" class="mobile-nav-link block px-3 py-2 rounded-md hover:bg-academic-100 dark:hover:bg-academic-800" data-target="teaching">Teaching</a>
+        <a href="#" onclick="navigate('students'); return false;" class="mobile-nav-link block px-3 py-2 rounded-md hover:bg-academic-100 dark:hover:bg-academic-800" data-target="students">Students</a>
+    </div>
+</div>
+
+<main class="flex-grow max-w-5xl mx-auto px-4 sm:px-6 w-full py-12">
+    
+    <!-- ========================================== -->
+    <!-- ABOUT PAGE -->
+    <!-- ========================================== -->
+    <section id="page-about" class="page-section animate-fade-in block">
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-12">
+            <!-- Left Column: Intro & Bio -->
+            <div class="md:col-span-8 space-y-8">
+                <div>
+                    <h1 class="text-4xl font-serif font-bold text-academic-900 dark:text-white mb-6 leading-snug">
+                        Assistant Professor (Tenured)<br>
+                        <span class="text-2xl text-academic-600 dark:text-academic-400 font-normal">Decision Sciences Area, IIM Bangalore</span>
+                    </h1>
+                    <div class="prose prose-slate dark:prose-invert max-w-none text-academic-700 dark:text-academic-300 leading-relaxed font-light">
+                        <p class="mb-4">
+                            I am an Assistant Professor (with Tenure) in the Decision Sciences Area at the <strong>Indian Institute of Management Bangalore (IIMB)</strong>, where I concurrently hold the <strong>IIMB Young Faculty Research Chair</strong>.
+                        </p>
+                        <p class="mb-4">
+                            My academic journey began at Mumbai University with a B.E. in Electronics (2015), followed by an M.Sc. and Ph.D. in Quantitative Risk Management from the <strong>Tata Institute of Fundamental Research (TIFR), Mumbai</strong> under the advisement of Dr. Sandeep Juneja. Prior to joining IIMB, I served as a Postdoctoral Researcher at the Singapore University of Technology and Design (SUTD).
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Polished Academic Research Interests -->
+                <div class="pt-6">
+                    <h2 class="text-xl font-serif font-semibold text-academic-900 dark:text-white border-b border-academic-200 dark:border-academic-700 pb-3 mb-6">Core Research Themes</h2>
+                    <ul class="space-y-5 text-academic-700 dark:text-academic-300 text-sm">
+                        <li class="flex items-start">
+                            <i class="fas fa-play text-[8px] text-academic-blue mt-1.5 mr-4 opacity-70"></i>
+                            <div>
+                                <strong class="text-academic-900 dark:text-academic-100 block mb-1">Quantitative Risk Management</strong>
+                                <span class="font-light leading-relaxed block">Focusing on systemic risk graph models and asymptotic studies of risk in financial networks.</span>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-play text-[8px] text-academic-blue mt-1.5 mr-4 opacity-70"></i>
+                            <div>
+                                <strong class="text-academic-900 dark:text-academic-100 block mb-1">Extreme Value Theory and Rare Event Simulation</strong>
+                                <span class="font-light leading-relaxed block">Designing algorithms to achieve efficiency in the simulation of distribution tails.</span>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-play text-[8px] text-academic-blue mt-1.5 mr-4 opacity-70"></i>
+                            <div>
+                                <strong class="text-academic-900 dark:text-academic-100 block mb-1">Distributionally Robust Optimization</strong>
+                                <span class="font-light leading-relaxed block">Developing methodologies for robust estimation, with an emphasis on tails.</span>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-play text-[8px] text-academic-blue mt-1.5 mr-4 opacity-70"></i>
+                            <div>
+                                <strong class="text-academic-900 dark:text-academic-100 block mb-1">Financial Networks</strong>
+                                <span class="font-light leading-relaxed block">Analyzing interconnected financial systems and systemic risk graph models.</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Selective Awards (Academic Presentation) -->
+                <div class="pt-6">
+                    <h2 class="text-xl font-serif font-semibold text-academic-900 dark:text-white border-b border-academic-200 dark:border-academic-700 pb-3 mb-6">Selected Honors</h2>
+                    <div class="space-y-4 text-sm font-light text-academic-700 dark:text-academic-300">
+                        <div class="flex items-start">
+                            <span class="text-academic-500 font-medium w-16 flex-shrink-0">2024</span>
+                            <span><strong>I-SIM Best Publication Award</strong> for "Achieving Efficiency in Black-box Simulation of Distribution Tails"</span>
+                        </div>
+                        <div class="flex items-start">
+                            <span class="text-academic-500 font-medium w-16 flex-shrink-0">2023</span>
+                            <span><strong>Excellence in Teaching Award</strong> (Applied Probability and Statistical Models), IIM-Bangalore</span>
+                        </div>
+                        <div class="flex items-start">
+                            <span class="text-academic-500 font-medium w-16 flex-shrink-0">2021</span>
+                            <span><strong>Third Prize at INFORMS JFIG</strong> for Black-box simulation efficiency research</span>
+                        </div>
+                        <div class="flex items-start">
+                            <span class="text-academic-500 font-medium w-16 flex-shrink-0">2017</span>
+                            <span><strong>Best Paper Award</strong> at CRISIL Doctoral Symposium</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column: Contact & Quick Links -->
+            <div class="md:col-span-4">
+                <div class="sticky top-28 bg-white dark:bg-academic-800 p-6 rounded-lg border border-academic-200 dark:border-academic-700 shadow-sm">
+                    <!-- Placeholder for Headshot -->
+                    <div class="w-full aspect-square bg-academic-100 dark:bg-academic-700 rounded mb-6 flex items-center justify-center border border-academic-200 dark:border-academic-600">
+                        <i class="fas fa-user-tie text-4xl text-academic-300 dark:text-academic-500"></i>
+                    </div>
+                    
+                    <h3 class="text-sm font-bold text-academic-900 dark:text-white uppercase tracking-wider mb-4 border-b border-academic-100 dark:border-academic-700 pb-2">Contact</h3>
+                    
+                    <ul class="space-y-3 text-sm text-academic-600 dark:text-academic-300">
+                        <li>
+                            <a href="mailto:deo.anand.a@gmail.com" class="flex items-center hover:text-academic-blue transition-colors group">
+                                <i class="fas fa-envelope w-6 text-academic-400 group-hover:text-academic-blue"></i>
+                                deo.anand.a@gmail.com
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.linkedin.com/in/anand-deo-operationsresearch/" target="_blank" class="flex items-center hover:text-academic-blue transition-colors group">
+                                <i class="fab fa-linkedin w-6 text-academic-400 group-hover:text-academic-blue"></i>
+                                LinkedIn Profile
+                            </a>
+                        </li>
+                    </ul>
+
+                    <div class="mt-8 pt-6 border-t border-academic-100 dark:border-academic-700">
+                        <a href="Professional_CV_Jun26.pdf" target="_blank" class="block w-full text-center bg-academic-800 hover:bg-academic-900 dark:bg-academic-700 dark:hover:bg-academic-600 text-white font-medium py-2.5 px-4 rounded transition-colors text-sm">
+                            <i class="fas fa-file-pdf mr-2"></i> View Full CV
+                        </a>
+                        <p class="text-center text-xs text-academic-500 mt-3">Professional_CV_Jun26.pdf</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- RESEARCH PAGE -->
+    <!-- ========================================== -->
+    <section id="page-research" class="page-section hidden animate-fade-in">
+        <h1 class="text-3xl font-serif font-bold text-academic-900 dark:text-white mb-8 border-b border-academic-200 dark:border-academic-700 pb-4">Publications & Research</h1>
+        
+        <!-- Filter Buttons -->
+        <div class="flex flex-wrap gap-2 mb-10 border-b border-academic-200 dark:border-academic-700 pb-6">
+            <button onclick="filterPubs('all')" class="pub-btn active-pub-btn px-4 py-1.5 text-sm font-medium border border-academic-300 dark:border-academic-600 rounded hover:bg-academic-100 dark:hover:bg-academic-800 transition-colors" data-filter="all">All</button>
+            <button onclick="filterPubs('journal')" class="pub-btn px-4 py-1.5 text-sm font-medium border border-academic-300 dark:border-academic-600 rounded hover:bg-academic-100 dark:hover:bg-academic-800 transition-colors" data-filter="journal">Journals & Preprints</button>
+            <button onclick="filterPubs('conference')" class="pub-btn px-4 py-1.5 text-sm font-medium border border-academic-300 dark:border-academic-600 rounded hover:bg-academic-100 dark:hover:bg-academic-800 transition-colors" data-filter="conference">Conference Proceedings</button>
+            <button onclick="filterPubs('working')" class="pub-btn px-4 py-1.5 text-sm font-medium border border-academic-300 dark:border-academic-600 rounded hover:bg-academic-100 dark:hover:bg-academic-800 transition-colors" data-filter="working">Working Papers</button>
+        </div>
+
+        <div class="space-y-12">
+            <!-- Journal Publications -->
+            <div class="pub-section" data-category="journal">
+                <h2 class="text-xl font-serif font-semibold text-academic-800 dark:text-academic-200 mb-6">Journal Publications & Preprints</h2>
+                <div class="space-y-8 pl-4 border-l-2 border-academic-200 dark:border-academic-700">
+                    
+                    <div class="relative">
+                        <div class="absolute -left-[21px] top-1.5 w-2.5 h-2.5 bg-academic-400 dark:bg-academic-500 rounded-full border-2 border-white dark:border-academic-900"></div>
+                        <h3 class="text-base font-medium text-academic-900 dark:text-white leading-snug">Decision Scaled Approach to Scenario Approximation</h3>
+                        <p class="text-sm text-academic-600 dark:text-academic-400 mt-1">with Jaeseok Choi, Constantino M. Lagoa, Anirudh Subramanyam</p>
+                        <p class="text-sm text-academic-800 dark:text-academic-300 mt-2 font-serif italic">Preprint under review at Mathematical Programming</p>
+                    </div>
+
+                    <div class="relative">
+                        <div class="absolute -left-[21px] top-1.5 w-2.5 h-2.5 bg-academic-400 dark:bg-academic-500 rounded-full border-2 border-white dark:border-academic-900"></div>
+                        <h3 class="text-base font-medium text-academic-900 dark:text-white leading-snug">On Design of Representative Distributionally Robust Formulations for Evaluation of Tail Risk Measures</h3>
+                        <p class="text-sm text-academic-800 dark:text-academic-300 mt-2 font-serif italic">Preprint under review at Extremes</p>
+                    </div>
+
+                    <div class="relative">
+                        <div class="absolute -left-[21px] top-1.5 w-2.5 h-2.5 bg-academic-400 dark:bg-academic-500 rounded-full border-2 border-white dark:border-academic-900"></div>
+                        <h3 class="text-base font-medium text-academic-900 dark:text-white leading-snug">The Scaling Behaviors in Achieving High Reliability via Chance-Constrained Optimization</h3>
+                        <p class="text-sm text-academic-600 dark:text-academic-400 mt-1">with Karthyek Murthy</p>
+                        <p class="text-sm text-academic-800 dark:text-academic-300 mt-2 font-serif italic">Preprint to be submitted to Management Science</p>
+                    </div>
+
+                    <div class="relative">
+                        <div class="absolute -left-[21px] top-1.5 w-2.5 h-2.5 bg-academic-blue rounded-full border-2 border-white dark:border-academic-900"></div>
+                        <h3 class="text-base font-medium text-academic-900 dark:text-white leading-snug">Achieving Efficiency in Black-box Simulation of Distribution Tails with Self-structuring Importance Samplers</h3>
+                        <p class="text-sm text-academic-600 dark:text-academic-400 mt-1">with Karthyek Murthy</p>
+                        <p class="text-sm text-academic-800 dark:text-academic-300 mt-2"><span class="font-serif italic">Operations Research</span>, 2025</p>
+                        <p class="text-sm font-semibold text-amber-700 dark:text-amber-500 mt-1.5 flex items-center"><i class="fas fa-award mr-1.5"></i> I-SIM Best Publication Award (2024)</p>
+                        <p class="text-sm font-semibold text-amber-700 dark:text-amber-500 mt-1 flex items-center"><i class="fas fa-award mr-1.5"></i> Third Prize at INFORMS JFIG (2021)</p>
+                    </div>
+
+                    <div class="relative">
+                        <div class="absolute -left-[21px] top-1.5 w-2.5 h-2.5 bg-academic-400 dark:bg-academic-500 rounded-full border-2 border-white dark:border-academic-900"></div>
+                        <h3 class="text-base font-medium text-academic-900 dark:text-white leading-snug">Reduced Sample Complexity in Scenario-Based Control System Design via Constraint Scaling</h3>
+                        <p class="text-sm text-academic-600 dark:text-academic-400 mt-1">with Jaeseok Choi, Constantino M. Lagoa, Anirudh Subramanyam</p>
+                        <p class="text-sm text-academic-800 dark:text-academic-300 mt-2"><span class="font-serif italic">IEEE Control Systems Letters</span>, 2024 (American Control Conference 2025)</p>
+                    </div>
+
+                    <div class="relative">
+                        <div class="absolute -left-[21px] top-1.5 w-2.5 h-2.5 bg-academic-blue rounded-full border-2 border-white dark:border-academic-900"></div>
+                        <h3 class="text-base font-medium text-academic-900 dark:text-white leading-snug">Credit Risk: Simple Closed Form Approximate Maximum Likelihood Estimator</h3>
+                        <p class="text-sm text-academic-600 dark:text-academic-400 mt-1">with Sandeep Juneja</p>
+                        <p class="text-sm text-academic-800 dark:text-academic-300 mt-2"><span class="font-serif italic">Operations Research</span>, 2021</p>
+                        <p class="text-sm font-semibold text-amber-700 dark:text-amber-500 mt-1.5 flex items-center"><i class="fas fa-award mr-1.5"></i> Best Paper Award at the CRISIL Doctoral Symposium (2017)</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Conference Publications -->
+            <div class="pub-section" data-category="conference">
+                <h2 class="text-xl font-serif font-semibold text-academic-800 dark:text-academic-200 mb-6">Publications at Conferences with Proceedings</h2>
+                <div class="space-y-8 pl-4 border-l-2 border-academic-200 dark:border-academic-700">
+                    
+                    <div class="relative">
+                        <div class="absolute -left-[21px] top-1.5 w-2.5 h-2.5 bg-academic-400 dark:bg-academic-500 rounded-full border-2 border-white dark:border-academic-900"></div>
+                        <h3 class="text-base font-medium text-academic-900 dark:text-white leading-snug">A large deviations perspective to stress testing</h3>
+                        <p class="text-sm text-academic-800 dark:text-academic-300 mt-2"><span class="font-serif italic">Winter Simulation Conference</span>, 2026 (Accepted)</p>
+                    </div>
+
+                    <div class="relative">
+                        <div class="absolute -left-[21px] top-1.5 w-2.5 h-2.5 bg-academic-400 dark:bg-academic-500 rounded-full border-2 border-white dark:border-academic-900"></div>
+                        <h3 class="text-base font-medium text-academic-900 dark:text-white leading-snug">Sampling distribution tails using Generative Models</h3>
+                        <p class="text-sm text-academic-600 dark:text-academic-400 mt-1">with Mantu Gupta</p>
+                        <p class="text-sm text-academic-800 dark:text-academic-300 mt-2"><span class="font-serif italic">Winter Simulation Conference</span>, 2026 (Accepted)</p>
+                    </div>
+
+                    <div class="relative">
+                        <div class="absolute -left-[21px] top-1.5 w-2.5 h-2.5 bg-academic-400 dark:bg-academic-500 rounded-full border-2 border-white dark:border-academic-900"></div>
+                        <h3 class="text-base font-medium text-academic-900 dark:text-white leading-snug">Importance Sampling for Optimisation with Rare Events: A Tutorial</h3>
+                        <p class="text-sm text-academic-600 dark:text-academic-400 mt-1">with Karthyek Murthy (Invited Tutorial)</p>
+                        <p class="text-sm text-academic-800 dark:text-academic-300 mt-2"><span class="font-serif italic">Winter Simulation Conference</span>, 2024</p>
+                    </div>
+
+                     <div class="relative">
+                        <div class="absolute -left-[21px] top-1.5 w-2.5 h-2.5 bg-academic-400 dark:bg-academic-500 rounded-full border-2 border-white dark:border-academic-900"></div>
+                        <h3 class="text-base font-medium text-academic-900 dark:text-white leading-snug">Combining Retrospective Approximation with Importance Sampling for Optimising Conditional Value at Risk</h3>
+                        <p class="text-sm text-academic-600 dark:text-academic-400 mt-1">with Karthyek Murthy and Tirtho Sarker (Invited Paper)</p>
+                        <p class="text-sm text-academic-800 dark:text-academic-300 mt-2"><span class="font-serif italic">Winter Simulation Conference</span>, 2022</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Working Papers -->
+            <div class="pub-section" data-category="working">
+                <h2 class="text-xl font-serif font-semibold text-academic-800 dark:text-academic-200 mb-6">Working Papers</h2>
+                <div class="space-y-6 pl-4 border-l-2 border-academic-200 dark:border-academic-700">
+                    <div class="relative">
+                        <div class="absolute -left-[21px] top-1.5 w-2.5 h-2.5 bg-transparent border-2 border-academic-400 dark:border-academic-500 rounded-full"></div>
+                        <h3 class="text-base font-medium text-academic-900 dark:text-white leading-snug">Learning Stress Laws Conditioned on Rare Joint Losses</h3>
+                        <p class="text-sm text-academic-600 dark:text-academic-400 mt-1">with Mantu Gupta (Draft available upon request)</p>
+                    </div>
+                    
+                    <div class="relative">
+                        <div class="absolute -left-[21px] top-1.5 w-2.5 h-2.5 bg-transparent border-2 border-academic-400 dark:border-academic-500 rounded-full"></div>
+                        <h3 class="text-base font-medium text-academic-900 dark:text-white leading-snug">Asymptotic Analysis of Distributionally Robust Optimization</h3>
+                        <p class="text-sm text-academic-600 dark:text-academic-400 mt-1">with Harshit Joshi</p>
+                    </div>
+
+                    <div class="relative">
+                        <div class="absolute -left-[21px] top-1.5 w-2.5 h-2.5 bg-transparent border-2 border-academic-400 dark:border-academic-500 rounded-full"></div>
+                        <h3 class="text-base font-medium text-academic-900 dark:text-white leading-snug">Black Box Importance Sampling for Chance Constrained Optimisation problems</h3>
+                        <p class="text-sm text-academic-600 dark:text-academic-400 mt-1">with Anirudh Subramanyam, Sai Rakshith, Shanyin Tong and Karthyek Murthy</p>
+                    </div>
+                    
+                    <div class="relative">
+                        <div class="absolute -left-[21px] top-1.5 w-2.5 h-2.5 bg-transparent border-2 border-academic-400 dark:border-academic-500 rounded-full"></div>
+                        <h3 class="text-base font-medium text-academic-900 dark:text-white leading-snug">Estimation of tail probabilities for spatial extremes</h3>
+                        <p class="text-sm text-academic-600 dark:text-academic-400 mt-1">with Soudeep Deb, Madhab Barman and Lizan Periera</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- TEACHING PAGE -->
+    <!-- ========================================== -->
+    <section id="page-teaching" class="page-section hidden animate-fade-in">
+        <h1 class="text-3xl font-serif font-bold text-academic-900 dark:text-white mb-8 border-b border-academic-200 dark:border-academic-700 pb-4">Teaching Portfolio</h1>
+        
+        <div class="space-y-12">
+            <!-- MBA Courses -->
+            <div>
+                <h2 class="text-xl font-serif font-semibold text-academic-800 dark:text-academic-200 mb-6">MBA Level Courses</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    
+                    <!-- Course Card -->
+                    <div class="border border-academic-200 dark:border-academic-700 bg-white dark:bg-academic-800 p-6 rounded shadow-sm hover:shadow-md transition-shadow">
+                        <a href="#" class="group">
+                            <h3 class="text-lg font-medium text-academic-900 dark:text-white mb-2 group-hover:text-academic-blue transition-colors flex items-center justify-between">
+                                Advanced Probability and Statistical Models
+                                <i class="fas fa-external-link-alt text-xs opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                            </h3>
+                        </a>
+                        <p class="text-sm font-serif italic text-academic-600 dark:text-academic-400">IIM-B Excellence in Teaching</p>
+                    </div>
+
+                    <div class="border border-academic-200 dark:border-academic-700 bg-white dark:bg-academic-800 p-6 rounded shadow-sm hover:shadow-md transition-shadow">
+                        <a href="#" class="group">
+                            <h3 class="text-lg font-medium text-academic-900 dark:text-white mb-2 group-hover:text-academic-blue transition-colors flex items-center justify-between">
+                                Quantitative Risk Management
+                                <i class="fas fa-external-link-alt text-xs opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                            </h3>
+                        </a>
+                        <p class="text-sm font-serif italic text-academic-600 dark:text-academic-400">Core/Elective Offering</p>
+                    </div>
+
+                    <div class="border border-academic-200 dark:border-academic-700 bg-white dark:bg-academic-800 p-6 rounded shadow-sm hover:shadow-md transition-shadow">
+                        <a href="#" class="group">
+                            <h3 class="text-lg font-medium text-academic-900 dark:text-white mb-2 group-hover:text-academic-blue transition-colors flex items-center justify-between">
+                                Decision Sciences (1)
+                                <i class="fas fa-external-link-alt text-xs opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                            </h3>
+                        </a>
+                        <p class="text-sm font-serif italic text-academic-600 dark:text-academic-400">Core Management Curriculum</p>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Executive / PhD Courses -->
+            <div>
+                <h2 class="text-xl font-serif font-semibold text-academic-800 dark:text-academic-200 mb-6">Ph.D. & Executive Level Courses</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    
+                    <div class="border border-academic-200 dark:border-academic-700 bg-white dark:bg-academic-800 p-6 rounded shadow-sm hover:shadow-md transition-shadow">
+                        <a href="#" class="group block">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-lg font-medium text-academic-900 dark:text-white group-hover:text-academic-blue transition-colors flex items-center">
+                                    Linear Algebra
+                                    <i class="fas fa-external-link-alt text-xs opacity-0 group-hover:opacity-100 transition-opacity ml-2"></i>
+                                </h3>
+                                <span class="text-xs text-academic-500 uppercase tracking-wide">Ph.D. Level</span>
+                            </div>
+                        </a>
+                        <p class="text-sm text-academic-600 dark:text-academic-400">Indian School of Business</p>
+                    </div>
+
+                    <div class="border border-academic-200 dark:border-academic-700 bg-white dark:bg-academic-800 p-6 rounded shadow-sm hover:shadow-md transition-shadow">
+                        <a href="#" class="group block">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-lg font-medium text-academic-900 dark:text-white group-hover:text-academic-blue transition-colors flex items-center">
+                                    Advanced Statistical Analysis
+                                    <i class="fas fa-external-link-alt text-xs opacity-0 group-hover:opacity-100 transition-opacity ml-2"></i>
+                                </h3>
+                                <span class="text-xs text-academic-500 uppercase tracking-wide">Executive</span>
+                            </div>
+                        </a>
+                        <p class="text-sm text-academic-600 dark:text-academic-400">Indian School of Business</p>
+                    </div>
+                    
+                    <div class="border border-academic-200 dark:border-academic-700 bg-white dark:bg-academic-800 p-6 rounded shadow-sm hover:shadow-md transition-shadow">
+                        <a href="#" class="group block">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-lg font-medium text-academic-900 dark:text-white group-hover:text-academic-blue transition-colors flex items-center">
+                                    Probability Theory
+                                    <i class="fas fa-external-link-alt text-xs opacity-0 group-hover:opacity-100 transition-opacity ml-2"></i>
+                                </h3>
+                                <span class="text-xs text-academic-500 uppercase tracking-wide">Ph.D. Level</span>
+                            </div>
+                        </a>
+                        <p class="text-sm text-academic-600 dark:text-academic-400">Multiple Institutions</p>
+                    </div>
+
+                </div>
+            </div>
+            
+            <!-- Invited Short Courses -->
+            <div>
+                <h2 class="text-xl font-serif font-semibold text-academic-800 dark:text-academic-200 mb-6">Invited Short Courses</h2>
+                <div class="border border-academic-200 dark:border-academic-700 bg-academic-50 dark:bg-academic-800/50 p-6 rounded shadow-sm hover:shadow-md transition-shadow">
+                    <a href="#" class="group block">
+                        <h3 class="text-base font-medium text-academic-900 dark:text-white mb-2 group-hover:text-academic-blue transition-colors flex items-center">
+                            Quantitative Risk Management
+                            <i class="fas fa-external-link-alt text-xs opacity-0 group-hover:opacity-100 transition-opacity ml-2"></i>
+                        </h3>
+                    </a>
+                    <p class="text-sm text-academic-600 dark:text-academic-400">ACM India Winter School 2025 (at IIIT-Hyderabad)</p>
+                    <p class="text-sm text-academic-500 italic mt-2">Note: This was an official pre-summit event of the AI Impact Summit 2026.</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- STUDENTS PAGE -->
+    <!-- ========================================== -->
+    <section id="page-students" class="page-section hidden animate-fade-in">
+        <h1 class="text-3xl font-serif font-bold text-academic-900 dark:text-white mb-8 border-b border-academic-200 dark:border-academic-700 pb-4">Student Mentoring</h1>
+        <p class="text-academic-700 dark:text-academic-300 mb-8 max-w-3xl leading-relaxed">
+            I have the privilege of advising and collaborating with outstanding scholars across Doctoral, Postdoctoral, and Masters levels. Below is an overview of current mentees and active research projects.
+        </p>
+        
+        <div class="space-y-12">
+            <!-- Doctoral & Postdoc -->
+            <div>
+                <h2 class="text-xl font-serif font-semibold text-academic-800 dark:text-academic-200 mb-6 pb-2 border-b border-academic-100 dark:border-academic-800">Doctoral Students & Postdocs</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Mantu Gupta -->
+                    <div class="border border-academic-200 dark:border-academic-700 bg-white dark:bg-academic-800 p-6 rounded">
+                        <div class="mb-4">
+                            <h3 class="text-lg font-medium text-academic-900 dark:text-white">Mantu Gupta</h3>
+                            <p class="text-sm text-academic-600 dark:text-academic-400">Ph.D. Mentee (IIM Bangalore) • Sep 2023 - Present</p>
+                        </div>
+                        <div class="text-sm text-academic-700 dark:text-academic-300">
+                            <p class="font-medium mb-1">Active Projects:</p>
+                            <ul class="list-disc pl-5 space-y-1 font-light">
+                                <li>Efficient Estimation of CVaR Sensitivities using Importance Sampling</li>
+                                <li>Generative models for extreme events</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Spandan Roy -->
+                    <div class="border border-academic-200 dark:border-academic-700 bg-white dark:bg-academic-800 p-6 rounded">
+                        <div class="mb-4">
+                            <h3 class="text-lg font-medium text-academic-900 dark:text-white">Spandan Roy</h3>
+                            <p class="text-sm text-academic-600 dark:text-academic-400">Ph.D. Mentee • Sep 2025 - Present</p>
+                        </div>
+                        <div class="text-sm text-academic-700 dark:text-academic-300">
+                            <p class="font-medium mb-1">Active Projects:</p>
+                            <ul class="list-disc pl-5 space-y-1 font-light">
+                                <li>Data-driven distributionally robust estimation of risk measures</li>
+                                <li>Efficient batching strategies for rider allocation</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Ayushi Singh -->
+                    <div class="border border-academic-200 dark:border-academic-700 bg-white dark:bg-academic-800 p-6 rounded">
+                        <div class="mb-4">
+                            <h3 class="text-lg font-medium text-academic-900 dark:text-white">Ayushi Singh</h3>
+                            <p class="text-sm text-academic-600 dark:text-academic-400">Ph.D. Mentee • Sep 2025 - Present</p>
+                        </div>
+                        <div class="text-sm text-academic-700 dark:text-academic-300">
+                            <p class="font-medium mb-1">Active Projects:</p>
+                            <ul class="list-disc pl-5 space-y-1 font-light">
+                                <li>Importance sampling for minimisation of non-linear tail risk measures</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Madhab Barman -->
+                    <div class="border border-academic-200 dark:border-academic-700 bg-white dark:bg-academic-800 p-6 rounded">
+                        <div class="mb-4">
+                            <h3 class="text-lg font-medium text-academic-900 dark:text-white">Dr. Madhab Barman</h3>
+                            <p class="text-sm text-academic-600 dark:text-academic-400">Postdoctoral Researcher (IIMB) • Jun 2025 - Present</p>
+                        </div>
+                        <div class="text-sm text-academic-700 dark:text-academic-300">
+                            <p class="font-medium mb-1">Active Projects:</p>
+                            <ul class="list-disc pl-5 space-y-1 font-light">
+                                <li>Data driven estimation of rare event probabilities for spatial extremes</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Lizan Periera -->
+                    <div class="border border-academic-200 dark:border-academic-700 bg-white dark:bg-academic-800 p-6 rounded">
+                        <h3 class="text-lg font-medium text-academic-900 dark:text-white">Lizan Periera</h3>
+                        <p class="text-sm text-academic-600 dark:text-academic-400">Ph.D. Mentee (IIM Bangalore) • Jun 2024 - Present</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Thesis Committees & Interns -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <div>
+                    <h2 class="text-xl font-serif font-semibold text-academic-800 dark:text-academic-200 mb-4 pb-2 border-b border-academic-100 dark:border-academic-800">Thesis Committee Member</h2>
+                    <ul class="space-y-3 text-academic-700 dark:text-academic-300 text-sm">
+                        <li class="flex items-center">
+                            <span class="w-1.5 h-1.5 bg-academic-400 rounded-full mr-3"></span>
+                            <strong>Kapil Gupta</strong> <span class="mx-2 text-academic-400">|</span> Doctoral Candidate, IIMB
+                        </li>
+                        <li class="flex items-center">
+                            <span class="w-1.5 h-1.5 bg-academic-400 rounded-full mr-3"></span>
+                            <strong>Kunal Rai</strong> <span class="mx-2 text-academic-400">|</span> Doctoral Candidate, IIMB
+                        </li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h2 class="text-xl font-serif font-semibold text-academic-800 dark:text-academic-200 mb-4 pb-2 border-b border-academic-100 dark:border-academic-800">Masters Students & Interns</h2>
+                    <ul class="space-y-4 text-sm text-academic-700 dark:text-academic-300">
+                        <li>
+                            <strong>Sai Rakshith</strong> <span class="text-academic-500 text-xs ml-2">(Master's Project)</span>
+                            <p class="font-light mt-0.5">Importance Sampling for Chance Constrained Optimization, Estimation of spatial extremes</p>
+                        </li>
+                        <li>
+                            <strong>Tirtho Sarker</strong> <span class="text-academic-500 text-xs ml-2">(Intern at SUTD)</span>
+                        </li>
+                        <li>
+                            <strong>Samarth Pardhi</strong> <span class="text-academic-500 text-xs ml-2">(Intern at IIM-B)</span>
+                            <p class="font-light mt-0.5">Extreme Value Theory Based Distributionally Robust Optimization</p>
+                        </li>
+                        <li>
+                            <strong>Harshit Joshi</strong> <span class="text-academic-500 text-xs ml-2">(Intern at IIM-B)</span>
+                            <p class="font-light mt-0.5">Asymptotic Analysis of Distributionally Robust Problems</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<footer class="mt-auto bg-white dark:bg-academic-950 border-t border-academic-200 dark:border-academic-800 py-8">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 text-center text-sm font-light text-academic-500 dark:text-academic-400">
+        <p>© 2026 Dr. Anand Deo. All rights reserved.</p>
+    </div>
+</footer>
+
+<script>
+    // --- Single Page Application (SPA) Navigation Logic ---
+    function navigate(pageId) {
+        // Hide all pages
+        document.querySelectorAll('.page-section').forEach(el => {
+            el.classList.add('hidden');
+            el.classList.remove('block');
+        });
+        
+        // Show target page
+        const targetPage = document.getElementById('page-' + pageId);
+        if(targetPage) {
+            targetPage.classList.remove('hidden');
+            targetPage.classList.add('block');
+        }
+
+        // Update nav active states
+        document.querySelectorAll('.nav-link, .mobile-nav-link').forEach(el => {
+            el.classList.remove('active-nav-link');
+            if(el.dataset.target === pageId) {
+                el.classList.add('active-nav-link');
+            }
+        });
+
+        // Close mobile menu if open
+        document.getElementById('mobileMenu').classList.add('hidden');
+
+        // Scroll to top
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // --- Publications Filtering Logic ---
+    function filterPubs(category) {
+        const sections = document.querySelectorAll('.pub-section');
+        const btns = document.querySelectorAll('.pub-btn');
+
+        // Update button states
+        btns.forEach(btn => {
+            if (btn.dataset.filter === category) {
+                btn.classList.add('bg-academic-200', 'dark:bg-academic-700', 'text-academic-900', 'dark:text-white', 'border-academic-400');
+                btn.classList.remove('hover:bg-academic-100', 'dark:hover:bg-academic-800');
+            } else {
+                btn.classList.remove('bg-academic-200', 'dark:bg-academic-700', 'text-academic-900', 'dark:text-white', 'border-academic-400');
+                btn.classList.add('hover:bg-academic-100', 'dark:hover:bg-academic-800');
+            }
+        });
+
+        // Filter content
+        sections.forEach(sec => {
+            if (category === 'all' || sec.dataset.category === category) {
+                sec.style.display = 'block';
+            } else {
+                sec.style.display = 'none';
+            }
+        });
+    }
+
+    // --- Dark/Light Mode Management ---
+    function setupThemeToggle(btnId, iconId) {
+        const toggleBtn = document.getElementById(btnId);
+        const icon = document.getElementById(iconId);
+        
+        if (!toggleBtn || !icon) return;
+
+        toggleBtn.addEventListener('click', () => {
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+                updateIcons('light');
+            } else {
+                document.documentElement.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+                updateIcons('dark');
+            }
+        });
+    }
+
+    function updateIcons(theme) {
+        const icons = ['themeIcon', 'themeIconMobile'];
+        icons.forEach(id => {
+            const el = document.getElementById(id);
+            if(el) {
+                if(theme === 'dark') {
+                    el.className = 'fas fa-sun text-academic-300';
+                } else {
+                    el.className = 'fas fa-moon text-academic-500';
+                }
+            }
+        });
+    }
+
+    // Initialize Theme
+    const isDarkMode = localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches);
+    if (isDarkMode) {
+        document.documentElement.classList.add('dark');
+        updateIcons('dark');
+    } else {
+        document.documentElement.classList.remove('dark');
+        updateIcons('light');
+    }
+
+    setupThemeToggle('themeToggle', 'themeIcon');
+    setupThemeToggle('themeToggleMobile', 'themeIconMobile');
+
+    // --- Mobile Menu Toggle ---
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    
+    mobileMenuBtn.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+    });
+
+    // Initialize initial active filter state
+    document.querySelector('.pub-btn[data-filter="all"]').classList.add('bg-academic-200', 'dark:bg-academic-700', 'text-academic-900', 'dark:text-white', 'border-academic-400');
+    
+    // Check hash on load to navigate correctly if linked directly (optional enhancement)
+    window.addEventListener('load', () => {
+        const hash = window.location.hash.replace('#', '');
+        if(['about', 'research', 'teaching', 'students'].includes(hash)) {
+            navigate(hash);
+        }
+    });
+
+</script>
+</body>
+</html>
